@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer create</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2; /* Set background color */
+            padding: 20px; /* Add padding to the body */
+        }
+
+        h1 {
+            color: #333; /* Set heading color */
+            text-align: center; /* Center align headings */
+        }
+
+        form {
+            max-width: 500px; /* Set maximum width for the form */
+            margin: 0 auto; /* Center the form horizontally */
+            background-color: #fff; /* Set background color for the form */
+            padding: 20px; /* Add padding to the form */
+            border-radius: 8px; /* Add border radius to the form */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add box shadow to the form */
+        }
+
+        input[type="text"] {
+            width: 100%; /* Make text input fields take full width */
+            padding: 10px; /* Add padding to text input fields */
+            margin-bottom: 15px; /* Add space between text input fields */
+            border: 1px solid #ccc; /* Add border to text input fields */
+            border-radius: 4px; /* Add border radius to text input fields */
+        }
+
+        button[type="submit"] {
+            background-color: #007bff; /* Set background color for submit button */
+            color: #fff; /* Set text color for submit button */
+            padding: 10px 20px; /* Add padding to submit button */
+            border: none; /* Remove border from submit button */
+            border-radius: 4px; /* Add border radius to submit button */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Change background color on hover */
+        }
+
+        #balance {
+            font-weight: bold; /* Set font weight for balance */
+            color: #007bff; /* Set text color for balance */
+        }
+    </style> 
+    <script>
+        $(document).ready(function(){
+            function updateBalance() {
+                const lunchCategory = $('#id_lunch_category').val();
+                const dinnerCategory = $('#id_dinner_category').val();
+                const planDays = $('#id_plan_days').val();
+                
+                if (lunchCategory && dinnerCategory && planDays) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url "calculate_balance" %}',
+                        data: {
+                            lunch_category: lunchCategory,
+                            dinner_category: dinnerCategory,
+                            plan_days: planDays
+                        },
+                        success: function(data){
+                            $('#balance').text('$' + data.balance);
+                        }
+                    });
+                } else {
+                    $('#balance').text('$0');
+                }
+            }
+
+            $('#id_lunch_category, #id_dinner_category, #id_plan_days').change(updateBalance);
+            updateBalance();  // Initialize the balance on page load
+        });
+    </script>
+</head>
+<body>
+    <h1>{% if form.instance.id %}Update{% else %}Create{% endif %} Customer</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Balance:<span id="balance">$0</span></p>  <!-- Initialized to $0 -->
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'customer_list' %}">Back to List</a>
+</body>
+</html>
+
+

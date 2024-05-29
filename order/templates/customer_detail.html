@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        p {
+            margin: 0;
+            color: #555;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ customer.name }}</h1>
+        <p>Balance: {{ customer.balance }}</p>
+        <p>Lunch Category: {{ customer.lunch_category }}</p>
+        <p>Dinner Category: {{ customer.dinner_category }}</p>
+        <p>Plan Days: {{ customer.plan_days }}</p>
+        <p>Meals Consumed: {{ customer.meals_consumed }}</p>
+
+        <h2>Manage Meals</h2>
+        <a href="{% url 'consume_meal' customer.id 'lunch' %}">Consume Lunch</a>
+        <a href="{% url 'consume_meal' customer.id 'dinner' %}">Consume Dinner</a>
+        <a href="{% url 'consume_meal' customer.id 'both' %}">Consume Both</a>
+
+        <h2>Turn Off Meals</h2>
+        <a href="{% url 'meal_off' customer.id %}">Turn Off Meals</a>
+
+        <br><br>
+        <a href="{% url 'customer_list' %}">Back to Customer List</a>
+</body>
+</html>

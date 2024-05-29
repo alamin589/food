@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+        p {
+            margin: 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Orders</h1>
+        <h2>Lunch</h2>
+        <p>Basic: {{ basic_lunch }}</p>
+        <p>Premium: {{ premium_lunch }}</p>
+        <h2>Dinner</h2>
+        <p>Basic: {{ basic_dinner }}</p>
+        <p>Premium: {{ premium_dinner }}</p>
+    </div>
+</body>
+</html>
